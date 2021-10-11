@@ -3,7 +3,9 @@ from django.db.models.deletion import CASCADE
 from autoslug import AutoSlugField
 
 from datetime import datetime
-from djgeojson import fields
+from django.contrib.gis.db import models as gismodels
+from django.db.models import Manager as GeoManager
+from django.db.models.fields import BLANK_CHOICE_DASH
 
 class Genus(models.Model):
     name = models.CharField(max_length=50, verbose_name='Name', unique=True)
@@ -46,7 +48,7 @@ class Strain(models.Model):
                              default = 'core/static/ceparium/images/no-img.jpg',
                              blank=True)
     collection_place = models.CharField(max_length=50,verbose_name='Collection Place')
-    collection_point = fields.PointField(null=True, blank=True)
+    collection_point = gismodels.PointField(null=True, blank=True)
     isolated_by = models.CharField(null=True, blank=True, max_length=50, verbose_name='Isolated by')
     identified_by = models.CharField(null=True, blank=True, max_length=50, verbose_name='Identified by')
 

@@ -4,7 +4,7 @@ import os
  """
 POSTGRESQL = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'dbCeparium',
         'USER': 'admin',
         'PASSWORD': 'admin',

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  {% load leaflet_tags %}
+  <head>
+    <meta charset="utf-8">
+    <title>{{ strain.strain_name }} Data</title>
+    {% load static %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+  </head>
+  <body>
+    <h1>Genus: {{ strain.species.genus }}</h1>
+    <h1>Species: {{ strain.species }}</h1>
+    <h1>Strain: {{ strain.strain_name }}</h1>
+    <a href="{# url 'core:edit_strain' genus_slug species_slug strain.slug #}">Edit strain</a>
+    <a href="{# url 'core:delete_strain' genus_slug species_slug strain.slug #}">Delete strain</a>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <p><img src="{{ strain.photo.url }}"></p>
+    <p>Ceparium Access Number: {{ strain.access_number }}</p>
+    <p>Taxonomic Rank: {{ strain.taxon_rank }}</p>
+    <p>Collection Date: {{ strain.collection_date }}</p>
+    <p>Reactivation Date: {{ strain.reactivation_date }}</p>
+    <p>Collection Place: {{ strain.collection_place }}</p>
+    <p>Preparation: {{ strain.preparation }}</p>
+    <p>Isolated By: {{ strain.isolated_by }}</p>
+    <p>Identified By: {{ strain.identified_by }}</p>
+    <br>
+    <p><a href={% url 'core:strains' genus_slug species_slug %}>Back to strains list</a></p>
+  </body>
+</html>

@@ -13,7 +13,8 @@
     {% if strains_list %}
         <ul>
             {% for strain in strains_list %}
-            <li><a href="{# url 'aluminum:detail' extruder_id system_id profile.id #}">{{ strain.strain_name }}</a></li>
+            <li><a href="{% url 'core:strain' genus_slug species_slug strain.slug %}">
+                {{ strain.strain_name }}</a></li>
             {% endfor %}
         </ul>
     {% else %}

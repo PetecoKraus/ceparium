@@ -44,13 +44,14 @@ class Strain(models.Model):
     collection_date = models.DateField(default=datetime.now, verbose_name='Collection Date')
     reactivation_date = models.DateField(verbose_name='Reactivation Date')
     preparation = models.TextField(null=True, blank=True, verbose_name='Preparation')
-    photo = models.ImageField(upload_to = 'core/static/ceparium/images/strains/', 
-                             default = 'core/static/ceparium/images/no-img.jpg',
+    photo = models.ImageField(upload_to = 'static/ceparium/images/strains/', 
+                             default = 'static/ceparium/images/no-img.jpg',
                              blank=True)
     collection_place = models.CharField(max_length=50,verbose_name='Collection Place')
     collection_point = gismodels.PointField(null=True, blank=True)
     isolated_by = models.CharField(null=True, blank=True, max_length=50, verbose_name='Isolated by')
     identified_by = models.CharField(null=True, blank=True, max_length=50, verbose_name='Identified by')
+    slug = AutoSlugField(null=True, default=None, populate_from='strain_name')
 
     def __str__(self):
         return self.strain_name

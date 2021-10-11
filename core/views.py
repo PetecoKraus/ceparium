@@ -39,5 +39,19 @@ class StrainListView(generic.ListView):
         context = super(StrainListView, self).get_context_data(**kwargs)
         context['species_id'] = Species.objects.filter(slug=self.kwargs['species_slug'])[0].pk
         context['species_name'] = Species.objects.filter(slug=self.kwargs['species_slug'])[0].name
+        context['species_slug'] = self.kwargs['species_slug']
+        context['genus_slug'] = self.kwargs['genus_slug']
+        return context
+
+
+class StrainDetailView(generic.DetailView):
+    model = Strain
+    template_name = 'ceparium/strain.html'
+    context_object_name = 'strain'
+
+    def get_context_data(self, **kwargs):
+        context = super(StrainDetailView, self).get_context_data(**kwargs)
+        context['slug'] = self.kwargs['slug']
+        context['species_slug'] = self.kwargs['species_slug']
         context['genus_slug'] = self.kwargs['genus_slug']
         return context

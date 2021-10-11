@@ -1,3 +1,6 @@
 from django.contrib import admin
+from core.models import *
 
-# Register your models here.
+admin.site.register(Genus)
+admin.site.register(Species)
+admin.site.register(Strain)

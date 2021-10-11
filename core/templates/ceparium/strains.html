@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Strains List</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'ceparium/style.css' %}">
+  </head>
+  <body>
+    <h1>List of {{ species_name }}'s Profiles</h1>
+    <a href="{# url 'core:edit_species' genus_slug species_slug #}">Edit species</a>
+    <a href="{# url 'core:delete_species' genus_slug species_slug #}">Delete species</a>
+    {% if strains_list %}
+        <ul>
+            {% for strain in strains_list %}
+            <li><a href="{# url 'aluminum:detail' extruder_id system_id profile.id #}">{{ strain.strain_name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No strains are available.</p>
+    {% endif %}
+    <br>
+    <p><a href="{# url 'core:create_strain' genus_slug species_slug #}">New strain</a>
+      <a href="{% url 'core:species' genus_slug %}">Back to species list</a></p>
+  </body>
+</html>

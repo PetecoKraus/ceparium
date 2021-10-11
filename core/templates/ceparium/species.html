@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Species List</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'ceparium/style.css' %}">
+  </head>
+  <body>
+    <h1>List of {{ genus_name }}'s Species</h1>
+    <a href="{# url 'core:edit_genus' genus_slug #}">Edit genus</a>
+    <a href="{# url 'core:delete_genus' genus_slug #}">Delete genus</a>
+    <br>
+    {% if species_list %}
+        <ul>
+            {% for species in species_list %}
+                <li><a href="{% url 'core:strains' genus_slug species.slug %}">{{ species.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No species are available.</p>
+    {% endif %}
+    <br>
+    <p><a href="{# url 'core:create_species' genus_slug #}">New species</a>
+    <a href="{% url 'core:genuses' %}">Back to genuses list</a></p>
+  </body>
+</html>

@@ -13,6 +13,6 @@ urlpatterns = [
     path('<slug:genus_slug>/species/', SpeciesListView.as_view(), name='species'),
     path('<slug:genus_slug>/<slug:species_slug>/strains/', StrainListView.as_view(), name='strains'),
     path('<slug:genus_slug>/<slug:species_slug>/<slug:slug>/strain/', 
-        StrainDetailView.as_view(), 
-        name='strain')
+        StrainDetailView.as_view(), name='strain'),
+    path('create_genus/', CreateGenusView.as_view(), name='create_genus'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

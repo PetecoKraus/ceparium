@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.views import generic
+from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 
 from .models import *
+from .forms import *
 
 class GenusListView(generic.ListView):
     template_name = 'ceparium/genuses.html'
@@ -55,3 +58,15 @@ class StrainDetailView(generic.DetailView):
         context['species_slug'] = self.kwargs['species_slug']
         context['genus_slug'] = self.kwargs['genus_slug']
         return context
+
+
+class CreateGenusView(generic.CreateView):
+    template_name = 'ceparium/create_genus.html'
+    success_url = reverse_lazy('core:genuses')
+    model = Genus
+    form_class = GenusForm
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())

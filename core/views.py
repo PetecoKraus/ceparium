@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import *
 from .forms import *
@@ -70,3 +71,21 @@ class CreateGenusView(generic.CreateView):
         self.object = form.save(commit=False)
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+
+class EditGenusView(generic.UpdateView, SuccessMessageMixin):
+    template_name = 'ceparium/edit_genus.html'
+    model = Genus
+    form_class = GenusForm
+    success_message = 'The genus name was successfully updated'
+    context_object_name = 'genus'
+
+    def get_success_url(self):
+        return reverse_lazy('core:species', kwargs={'genus_slug': self.kwargs['slug']})
+
+
+class DeleteGenusView(generic.DeleteView):
+    template_name = 'ceparium/delete_genus.html'
+    model = Genus
+    success_url = reverse_lazy('core:genuses')
+    context_object_name = 'genus'

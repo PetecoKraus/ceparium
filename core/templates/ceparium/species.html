@@ -21,7 +21,7 @@
         <p>No species are available.</p>
     {% endif %}
     <br>
-    <p><a href="{# url 'core:create_species' genus_slug #}">New species</a>
+    <p><a href="{% url 'core:create_species' genus_slug %}">New species</a>
     <a href="{% url 'core:genuses' %}">Back to genuses list</a></p>
   </body>
 </html>

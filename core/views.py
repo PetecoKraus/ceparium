@@ -89,3 +89,52 @@ class DeleteGenusView(generic.DeleteView):
     model = Genus
     success_url = reverse_lazy('core:genuses')
     context_object_name = 'genus'
+
+
+class CreateSpeciesView(generic.CreateView):
+    template_name = 'ceparium/create_species.html'
+    model = Species
+    form_class = SpeciesForm
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.genus = Genus.objects.get(slug=self.kwargs['genus_slug'])
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+    
+    def get_success_url(self):
+        return reverse_lazy('core:species', kwargs={'genus_slug': self.kwargs['genus_slug']})
+
+
+class EditSpeciesView(generic.UpdateView, SuccessMessageMixin):
+    template_name = 'ceparium/edit_species.html'
+    model = Species
+    form_class = SpeciesForm
+    success_message = 'The species name was successfully updated'
+    context_object_name = 'species'
+
+    def get_context_data(self, **kwargs):
+        context = super(EditSpeciesView, self).get_context_data(**kwargs)
+        context['species_slug'] = self.kwargs['slug']
+        context['genus_slug'] = self.kwargs['genus_slug']
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('core:strains', kwargs={'genus_slug': self.kwargs['genus_slug'],
+                                                    'species_slug': self.kwargs['slug']})
+
+
+class DeleteSpeciesView(generic.DeleteView):
+    template_name = 'ceparium/delete_species.html'
+    model = Species
+    success_url = reverse_lazy('core:species')
+    context_object_name = 'species'
+
+    def get_context_data(self, **kwargs):
+        context = super(DeleteSpeciesView, self).get_context_data(**kwargs)
+        context['species_slug'] = self.kwargs['slug']
+        context['genus_slug'] = self.kwargs['genus_slug']
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('core:species', kwargs={'genus_slug': self.kwargs['genus_slug']})

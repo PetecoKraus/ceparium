@@ -5,7 +5,7 @@ from autoslug import AutoSlugField
 from datetime import datetime
 from django.contrib.gis.db import models as gismodels
 from django.db.models import Manager as GeoManager
-from django.db.models.fields import BLANK_CHOICE_DASH
+
 
 class Genus(models.Model):
     name = models.CharField(max_length=50, verbose_name='Name', unique=True)

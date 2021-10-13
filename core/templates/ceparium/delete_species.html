@@ -2,16 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Delete Genus</title>
+    <title>Delete Species</title>
     {% load static %}
   </head>
   <body>
     <form action="" method="POST">
         {% csrf_token %}
         <p>Are you sure you want to delete "{{ object }}"? 
-            This change is irreversible and will delete all its species and strains asociated.</p>
+            This change is irreversible and will delete all its strains asociated.</p>
         <br>
-        <input type="submit" value="Confirm"><a href="{% url 'core:species' genus.slug %}">Cancel</a>
+        <input type="submit" value="Confirm"><a href="{% url 'core:strains' genus_slug species.slug %}">Cancel</a>
     </form>
   </body>
 </html>

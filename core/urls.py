@@ -17,4 +17,9 @@ urlpatterns = [
     path('create_genus/', CreateGenusView.as_view(), name='create_genus'),
     path('<slug:slug>/edit_genus/', EditGenusView.as_view(), name='edit_genus'),
     path('<slug:slug>/delete_genus/', DeleteGenusView.as_view(), name='delete_genus'),
+    path('<slug:genus_slug>/create_species/', CreateSpeciesView.as_view(), name='create_species'),
+    path('<slug:genus_slug>/<slug:slug>/edit_species/', 
+        EditSpeciesView.as_view(), name='edit_species'),
+    path('<slug:genus_slug>/<slug:slug>/delete_species/', 
+        DeleteSpeciesView.as_view(), name='delete_species'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

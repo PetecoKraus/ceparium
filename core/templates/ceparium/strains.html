@@ -21,7 +21,7 @@
         <p>No strains are available.</p>
     {% endif %}
     <br>
-    <p><a href="{# url 'core:create_strain' genus_slug species_slug #}">New strain</a>
+    <p><a href="{% url 'core:create_strain' genus_slug species_slug %}">New strain</a>
       <a href="{% url 'core:species' genus_slug %}">Back to species list</a></p>
   </body>
 </html>
